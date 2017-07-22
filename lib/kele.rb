@@ -1,4 +1,5 @@
 require 'httparty'
+require './lib/roadmap.rb'
 
  class Kele
    include HTTParty
