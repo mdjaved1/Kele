@@ -18,4 +18,16 @@ require './lib/roadmap.rb'
       response = self.class.get("https://www.bloc.io/api/v1/mentors/#{mentor_id}/student_availability", headers: { "authorization" => @auth_token })
       @mentor_availability = JSON.parse(response.body)
    end
+   def get_messages(page)
+       if page == nil 
+         response = self.class.get("https://www.bloc.io/api/v1/message_threads",  headers: { "authorization" => @auth_token }) 
+       else 
+         response = self.class.get("https://www.bloc.io/api/v1/message_threads/#{page}",  headers: { "authorization" => @auth_token })   
+       end
+       @messages = JSON.parse(response.body)
+   end
+   def create_message(sender, token , recipient_id, subject, stripped_text)
+        response = self.class.get("https://www.bloc.io/api/v1/messages",body: { "user_id": id, "recipient_id": recipient_id, "subject": subject, "stripped-text": stripped_text }, headers: { "authorization" => @auth_token })
+        p response
+   end
  end
